@@ -1,0 +1,65 @@
+from cs50 import get_string
+
+
+def main():
+    # Taking a string input from the user
+    text = get_string("Text: ")
+
+    # Assinging the return values of the tree functions into three variables
+    letters = letter(text)
+    words = word(text)
+    sentences = sentence(text)
+
+    # Calculating the average letter per 100 words 'L' and the average sentences per 100 words
+    L = (letters / words) * 100
+    S = (sentences / words) * 100
+
+    # Implementing The Coleman-Liau index
+    answer = int(round(0.0588 * L - 0.296 * S - 15.8))
+
+    # printing 'Grade 16+' if the answer is 16 or above, 'Before Grade' 1 if answer is lower than one or 'Grade + answer' if in between
+    if answer >= 12:
+        print("Grade 16+")
+    elif answer < 1:
+        print("Before Grade 1")
+    else:
+        print(f"Grade {answer}")
+
+# Calculating how many letters are in the text
+
+
+def letter(text):
+    counter = 0
+    for i in range(len(text)):
+        if text[i].isalpha():
+            counter += 1
+        else:
+            continue
+    return counter
+
+# Calculating how many words are in the text
+
+
+def word(text):
+    counter = 0
+    for i in range(len(text)):
+        if text[i] == " ":
+            counter += 1
+        else:
+            continue
+    return counter + 1
+
+# Calculating how many words are in the text
+
+
+def sentence(text):
+    counter = 0
+    for i in range(len(text)):
+        if text[i] == "." or text[i] == "?" or text[i] == "!":
+            counter += 1
+        else:
+            continue
+    return counter
+
+
+main()
